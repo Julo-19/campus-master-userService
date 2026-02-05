@@ -44,10 +44,12 @@ Architecture	Clean Architecture + Microservices
 🔌 Ports des microservices
 
 Service	URL	Port
+```bash 
 User Service	http://127.0.0.1:8000	8000
 Course Service	http://127.0.0.1:8001	8001
 Frontend (Next.js)	http://localhost:3000	3000
 MySQL (MAMP)	localhost	888
+```
 
 🚀 Démarrage rapide (Installation)
 
@@ -59,11 +61,12 @@ git clone https://github.com/ton-compte/campus-master-frontend.git
 
 
 🔧 Configuration du User Service
-
+``` bash 
 cd user-service
 composer install
 cp .env.example .env
 php artisan key:generate
+```
 
 .env (exemple MAMP)
 
@@ -74,12 +77,15 @@ DB_DATABASE=user_service_db
 DB_USERNAME=root
 DB_PASSWORD=root
 
+``` bash
 php artisan migrate
 php artisan db:seed
 php artisan serve --port=8000
 
+```
+
 ➡ API dispo sur :
-👉 http://127.0.0.1:8000
+```👉 http://127.0.0.1:8000```
 
 🔧 Configuration du Course Service
 
@@ -97,9 +103,10 @@ DB_DATABASE=courses_service_db
 DB_USERNAME=root
 DB_PASSWORD=root
 
+```bash
 php artisan migrate
 php artisan serve --port=8001
-
+```
 
 🌐 Frontend (Next.js)
 
@@ -108,7 +115,7 @@ npm install
 npm run dev
 
 ➡ Application web :
-👉 http://localhost:3000
+👉 ```http://localhost:3000```
 
 🔐 Authentification (Flow)
 	1.	L’étudiant / enseignant se connecte via user-service
@@ -123,7 +130,7 @@ Authorization: Bearer TOKEN
 ⚡ Configuration
 
 Dans .env :
-
+``` bash
 QUEUE_CONNECTION=database
 MAIL_MAILER=smtp
 MAIL_HOST=smtp.gmail.com
@@ -133,6 +140,7 @@ MAIL_PASSWORD=xxxx
 MAIL_ENCRYPTION=tls
 MAIL_FROM_ADDRESS=xxx@gmail.com
 MAIL_FROM_NAME="Campus Master"
+```
 
 📦 Créer les tables queue
 
@@ -146,7 +154,7 @@ php artisan migrate
 ```bash
 php artisan queue:work
  ```
- 
+
 ➡ Cette commande doit tourner pendant que tu testes l’envoi d’emails
 (ex: inscription étudiant, reset password, notification enseignant)
 
@@ -158,14 +166,16 @@ php artisan queue:work
 	5.	Les étudiants consultent les cours
 	6.	Les emails sont envoyés via queue
 
-📁 Livrables 
-	•	✅ Code source GitHub
-	•	✅ README technique
-	•	✅ Swagger UI
-	•	✅ Architecture microservices
-	•	✅ Clean Architecture
-	•	✅ Frontend Next.js
-	•	✅ Système de queue (emails)
+📁 ## Livrables
+
+- ✅ Code source GitHub
+- ✅ README technique
+- ✅ Swagger UI
+- ✅ Architecture microservices
+- ✅ Clean Architecture
+- ✅ Frontend Next.js
+- ✅ Système de queue (emails)
+
 
 🏁 Auteur
 
