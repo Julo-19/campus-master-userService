@@ -96,12 +96,14 @@ php artisan key:generate
 
 .env
 
+```bash 
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=8889
 DB_DATABASE=courses_service_db
 DB_USERNAME=root
 DB_PASSWORD=root
+```
 
 ```bash
 php artisan migrate
@@ -179,5 +181,5 @@ php artisan queue:work
 
 🏁 Auteur
 
-Ramatoulaye SADIO et Souleymane BARRO
+**Ramatoulaye SADIO** et **Souleymane BARRO**
 Projet académique – Plateforme Campus Master
