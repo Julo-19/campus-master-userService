@@ -141,7 +141,11 @@ php artisan migrate
 
 ▶ Lancer le worker (OBLIGATOIRE pour envoyer les emails)
 
+**Commande à exécuter pour lancer le worker de queue :**
+
+```bash
 php artisan queue:work
+
 
 ➡ Cette commande doit tourner pendant que tu testes l’envoi d’emails
 (ex: inscription étudiant, reset password, notification enseignant)
