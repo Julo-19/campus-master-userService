@@ -3,7 +3,7 @@
 
 🎯 Présentation du projet
 
-Campus Master est une plateforme web de gestion académique basée sur une architecture microservices :
+**Campus Master** est une plateforme web de gestion académique basée sur une architecture microservices :
 	•	👨‍🎓 Étudiants : inscription, connexion, profil, accès aux cours
 	•	👨‍🏫 Enseignants : gestion de leurs cours, chapitres, contenus
 	•	🧑‍💼 Admin : gestion des enseignants et des cours
