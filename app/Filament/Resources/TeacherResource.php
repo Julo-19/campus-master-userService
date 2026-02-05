@@ -18,7 +18,7 @@ class TeacherResource extends Resource
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
-    protected static ?string $navigationLabel = 'Enseignants';
+    protected static ?string $navigationLabel = 'Gestions des Enseignants';
     protected static ?string $pluralLabel = 'Enseignants';
     protected static ?string $modelLabel = 'Enseignant';
 

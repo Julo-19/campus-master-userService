@@ -7,7 +7,7 @@ use App\src\Infrastructure\Persistence\User;
 
 class UsersByRoleChart extends ChartWidget
 {
-    protected static ?string $heading = 'Répartition par rôle';
+    protected static ?string $heading = 'Répartition des Utilisateurs (Etudiants,Enseignants)';
     protected string|int|array $columnSpan = 1;
 
     protected function getType(): string
@@ -18,14 +18,14 @@ class UsersByRoleChart extends ChartWidget
     protected function getData(): array
     {
         return [
-            'labels' => ['Étudiants', 'Enseignants', 'Admins'],
+            'labels' => ['Étudiants', 'Enseignants', 'Etudiants en attente'],
             'datasets' => [
                 [
                     'label' => 'Utilisateurs',
                     'data' => [
                         User::where('role', 'student')->count(),
                         User::where('role', 'teacher')->count(),
-                        User::where('role', 'admin')->count(),
+                        User::where('status', 'pending')->count(),
                     ],
                     'backgroundColor' => ['#3B82F6', '#FACC15', '#EF4444'],
                     'borderColor' => ['#1D4ED8', '#CA8A04', '#B91C1C'],

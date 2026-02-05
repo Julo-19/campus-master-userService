@@ -36,30 +36,12 @@ class AdminOverview extends StatsOverviewWidget
                 ->color('warning'),
 
             // ✅ Users en attente
-            Card::make('En attente', User::where('status', 'pending')->count())
+            Card::make('Etudiants en attente', User::where('status', 'pending')->count())
                 ->description('Comptes en attente de validation')
                 ->color('secondary'),
 
-            Card::make('Actifs', User::where('status', 'active')->count())
+            Card::make('Utilisateurs Actifs', User::where('status', 'active')->count())
                 ->color('success'),
-
-
-            // Nombre de cours depuis le microservice sur le port 8001
-            Card::make('Cours', function () {
-                try {
-                    $response = Http::timeout(5)->get('http://127.0.0.1:8001/api/courses/count');
-                    
-                    if ($response->successful()) {
-                        return $response->json('count');
-                    }
-                } catch (\Exception $e) {
-                    return 'N/A';
-                }
-
-                return 'N/A';
-            })
-            ->description('Nombre total de cours')
-            ->color('info'),
         ];
     }
 }
