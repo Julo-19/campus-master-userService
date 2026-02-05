@@ -10,12 +10,15 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use App\src\Infrastructure\Persistence\User;
 use App\src\Infrastructure\Queue\SendStudentActivatedEmailJob;
+use Illuminate\Database\Eloquent\Builder;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Étudiants En Attente';
+    protected static ?string $navigationGroup = 'Gestion des utilisateurs';
 
     public static function form(Form $form): Form
     {
@@ -47,7 +50,10 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('email')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('role')->sortable(),
-                Tables\Columns\TextColumn::make('status')->sortable(),
+                Tables\Columns\TextColumn::make('status')->sortable(),  
+                Tables\Columns\TextColumn::make('studentProfile.ine')
+                ->label('INE')  
+                ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Inscription')
                     ->dateTime('d/m/Y H:i'),
@@ -102,6 +108,34 @@ class UserResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+
+            Tables\Actions\Action::make('Ajouter enseignant')
+            ->form([
+                Forms\Components\TextInput::make('name')->required(),
+                Forms\Components\TextInput::make('email')->email()->required(),
+            ])
+            ->action(function (array $data) {
+                app(\App\src\Application\UseCases\CreateTeacher::class)
+                    ->execute(
+                        new \App\src\Application\DTOs\CreateTeacherDTO(
+                            $data['name'],
+                            $data['email']
+                        )
+                    );
+            })
+            ->successNotification(
+                Notification::make()
+                    ->title('Enseignant créé')
+                    ->success()
+            );
+
+    
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+        ->where('role', 'student');
     }
 
     public static function getRelations(): array

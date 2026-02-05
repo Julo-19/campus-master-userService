@@ -6,7 +6,6 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -17,39 +16,43 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use App\Filament\Ressouurces\AdminDashboardResource\Pages\Dashboard;
 
-
-class AdminPanelProvider extends PanelProvider
+class EnseignantPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
-            ->id('admin')
-            ->path('admin')
-            ->login()
+            ->id('enseignant')
+            ->path('enseignant')
+            ->login() // ✅ CRÉE /enseignant/login
             ->colors([
                 'primary' => Color::Amber,
             ])
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
-            ->pages([
-                 Pages\Dashboard::class,
-            ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+
+            // 📦 Ressources Enseignant
+            ->discoverResources(
+                in: app_path('Filament/Enseignant/Resources'),
+                for: 'App\\Filament\\Enseignant\\Resources'
+            )
+
+            // 📄 Pages Enseignant
+            ->discoverPages(
+                in: app_path('Filament/Enseignant/Pages'),
+                for: 'App\\Filament\\Enseignant\\Pages'
+            )
+
+            // 📊 Widgets
+            ->discoverWidgets(
+                in: app_path('Filament/Enseignant/Widgets'),
+                for: 'App\\Filament\\Enseignant\\Widgets'
+            )
+
             ->widgets([
-                \App\Filament\Widgets\AdminOverview::class,
-                \App\Filament\Widgets\UsersByRoleChart::class, 
-                \App\Filament\Widgets\UsersByStatusChart::class,
-                // \App\Filament\Widgets\AdminOverview::class,
-                // \App\Filament\Widgets\StatsChart::class,
-                // \App\Filament\Widgets\UsersByRoleChart::class,    // gauche
-                // \App\Filament\Widgets\UsersByStatusChart::class,
-                // Widgets\AccountWidget::class,
-                // Widgets\FilamentInfoWidget::class,
+                Widgets\AccountWidget::class,
+                Widgets\FilamentInfoWidget::class,
             ])
-          
+
+            // 🔐 Middleware standard Filament
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -61,6 +64,8 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+
+            // 🔑 Auth Filament
             ->authMiddleware([
                 Authenticate::class,
             ]);

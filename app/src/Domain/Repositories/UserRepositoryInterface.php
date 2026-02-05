@@ -6,4 +6,5 @@ interface UserRepositoryInterface {
     public function save($user, array $studentProfile);
     public function findByEmail(string $email);
     public function updateStatus(int $userId, string $status);
+    public function createTeacher(array $data);
 }
