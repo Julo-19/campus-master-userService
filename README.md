@@ -145,8 +145,8 @@ php artisan migrate
 
 ```bash
 php artisan queue:work
-
-
+ ```
+ 
 ➡ Cette commande doit tourner pendant que tu testes l’envoi d’emails
 (ex: inscription étudiant, reset password, notification enseignant)
 
